@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">British Coffee</string>
+
+    <!-- Common Strings -->
+    <string name="home">Home</string>
+    <string name="menu">Menu</string>
+    <string name="cart">Cart</string>
+    <string name="checkout">Checkout</string>
+    <string name="tracking">Tracking</string>
+
+    <!-- Home Screen -->
+    <string name="good_morning">Good Morning!</string>
+    <string name="search_hint">Search your favorite coffee...</string>
+    <string name="quick_delivery">Quick Delivery\nat Your Doorstep</string>
+    <string name="get_started">Get Started</string>
+    <string name="explore_categories">Explore Categories</string>
+    <string name="order_delicious">Order Delicious Meal!</string>
+
+    <!-- Categories -->
+    <string name="espresso">Espresso</string>
+    <string name="cappuccino">Cappuccino</string>
+    <string name="latte">Latte</string>
+    <string name="americano">Americano</string>
+    <string name="mocha">Mocha</string>
+    <string name="tea">Tea</string>
+
+    <!-- Coffee Items -->
+    <string name="double_chocolate">Double Chocolate</string>
+    <string name="caramel_java">Caramel Java</string>
+    <string name="british_tea">British Breakfast Tea</string>
+    <string name="flat_white">Flat White</string>
+    <string name="cappuccino_classic">Cappuccino Classic</string>
+    <string name="iced_americano">Iced Americano</string>
+
+    <!-- Descriptions -->
+    <string name="double_chocolate_desc">Rich chocolate with premium espresso</string>
+    <string name="caramel_java_desc">Caramel infused arabica coffee</string>
+    <string name="british_tea_desc">Traditional English breakfast tea</string>
+    <string name="flat_white_desc">Creamy Australian style coffee</string>
+    <string name="cappuccino_classic_desc">Italian classic with foamed milk</string>
+    <string name="iced_americano_desc">Refreshing cold brew coffee</string>
+
+    <!-- Cart Screen -->
+    <string name="your_cart">Your Cart</string>
+    <string name="empty_cart">Your cart is empty</string>
+    <string name="empty_cart_message">Add some delicious coffee to your cart!</string>
+    <string name="browse_menu">Browse Menu</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="delivery_fee">Delivery Fee</string>
+    <string name="tax">Tax</string>
+    <string name="total">Total</string>
+    <string name="proceed_to_checkout">Proceed to Checkout</string>
+
+    <!-- Checkout Screen -->
+    <string name="delivery_address">Delivery Address</string>
+    <string name="change_address">Change Address</string>
+    <string name="purpose">Purpose</string>
+    <string name="quick_delivery_desc">Quick Delivery - 30 min or free</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="pay_now">Pay Now</string>
+
+    <!-- Payment Methods -->
+    <string name="credit_card">Credit Card</string>
+    <string name="paypal">PayPal</string>
+    <string name="apple_pay">Apple Pay</string>
+    <string name="cash_on_delivery">Cash on Delivery</string>
+
+    <!-- Card Details -->
+    <string name="card_number">Card Number</string>
+    <string name="card_number_hint">1234 5678 9012 3456</string>
+    <string name="expiry_date">MM/YY</string>
+    <string name="expiry_date_hint">MM/YY</string>
+    <string name="cvv">CVV</string>
+    <string name="cvv_hint">123</string>
+    <string name="card_holder">Card Holder Name</string>
+    <string name="card_holder_hint">John Doe</string>
+
+    <!-- Order Complete -->
+    <string name="order_confirmed">Order Confirmed!</string>
+    <string name="order_confirmed_message">Your order has been successfully placed and will be delivered within 30 minutes</string>
+    <string name="order_number">Order #BC2024001</string>
+    <string name="estimated_delivery">Estimated Delivery</string>
+    <string name="track_order">Track Order</string>
+    <string name="back_to_home">Back to Home</string>
+
+    <!-- Tracking Screen -->
+    <string name="order_tracking">Order Tracking</string>
+    <string name="estimated_delivery_time">Estimated delivery in 15 minutes</string>
+    <string name="your_delivery_partner">Your Delivery Partner</string>
+    <string name="call_delivery_partner">Call Delivery Partner</string>
+    <string name="order_details">Order Details</string>
+    <string name="order_time">Order Time</string>
+    <string name="live_location">Live Location</string>
+
+    <!-- Order Status -->
+    <string name="ordered">Ordered</string>
+    <string name="preparing">Preparing</string>
+    <string name="on_the_way">On the way</string>
+    <string name="delivered">Delivered</string>
+
+    <!-- Errors -->
+    <string name="error_loading">Error loading data</string>
+    <string name="retry">Retry</string>
+    <string name="network_error">Network error. Please check your connection.</string>
+
+    <!-- Success Messages -->
+    <string name="added_to_cart">Added to cart</string>
+    <string name="order_placed">Order placed successfully</string>
+    <string name="payment_successful">Payment successful</string>
+
+    <!-- Buttons - تم تصحيح الكلمة المحجوزة -->
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="btn_continue">Continue</string> <!-- تم التغيير هنا -->
+    <string name="skip">Skip</string>
+    <string name="finish">Finish</string>
+</resources>

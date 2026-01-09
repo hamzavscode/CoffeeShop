@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#FF8B4513</color>
+    <color name="primary_variant">#FF4A2C2A</color>
+    <color name="secondary">#FFCF142B</color>
+    <color name="secondary_variant">#FF00247D</color>
+    <color name="background">#FFF5E6D3</color>
+    <color name="surface">#FFFFFFFF</color>
+    <color name="error">#FFB00020</color>
+    <color name="on_primary">#FFFFFFFF</color>
+    <color name="on_secondary">#FFFFFFFF</color>
+    <color name="on_background">#FF4A2C2A</color>
+    <color name="on_surface">#FF4A2C2A</color>
+    <color name="on_error">#FFFFFFFF</color>
+
+    <!-- Additional colors -->
+    <color name="coffee_brown_light">#FFD2691E</color>
+    <color name="coffee_brown_medium">#FFA0522D</color>
+    <color name="cream_light">#FFE8D0B3</color>
+    <color name="cream_dark">#FFD4B28C</color>
+    <color name="british_blue">#FF00247D</color>
+    <color name="british_red">#FFCF142B</color>
+    <color name="rating_yellow">#FFFFD700</color>
+    <color name="success_green">#FF4CAF50</color>
+    <color name="warning_orange">#FFFF9800</color>
+    <color name="info_blue">#FF2196F3</color>
+    <color name="gray_light">#FFE0E0E0</color>
+    <color name="gray_medium">#FF9E9E9E</color>
+    <color name="gray_dark">#FF616161</color>
+</resources>

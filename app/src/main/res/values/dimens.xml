@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Padding and Margins -->
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_xlarge">24dp</dimen>
+    <dimen name="padding_xxlarge">32dp</dimen>
+
+    <!-- Spacing -->
+    <dimen name="spacing_small">4dp</dimen>
+    <dimen name="spacing_medium">8dp</dimen>
+    <dimen name="spacing_large">16dp</dimen>
+    <dimen name="spacing_xlarge">24dp</dimen>
+    <dimen name="spacing_xxlarge">32dp</dimen>
+
+    <!-- Sizes -->
+    <dimen name="icon_size_small">16dp</dimen>
+    <dimen name="icon_size_medium">24dp</dimen>
+    <dimen name="icon_size_large">32dp</dimen>
+    <dimen name="icon_size_xlarge">48dp</dimen>
+
+    <!-- Button Heights -->
+    <dimen name="button_height_small">40dp</dimen>
+    <dimen name="button_height_medium">48dp</dimen>
+    <dimen name="button_height_large">56dp</dimen>
+
+    <!-- Card Elevations -->
+    <dimen name="elevation_small">2dp</dimen>
+    <dimen name="elevation_medium">4dp</dimen>
+    <dimen name="elevation_large">8dp</dimen>
+
+    <!-- Corner Radius -->
+    <dimen name="corner_radius_small">4dp</dimen>
+    <dimen name="corner_radius_medium">8dp</dimen>
+    <dimen name="corner_radius_large">16dp</dimen>
+    <dimen name="corner_radius_xlarge">24dp</dimen>
+    <dimen name="corner_radius_circle">50%</dimen>
+
+    <!-- Image Sizes -->
+    <dimen name="image_size_small">40dp</dimen>
+    <dimen name="image_size_medium">80dp</dimen>
+    <dimen name="image_size_large">120dp</dimen>
+    <dimen name="image_size_xlarge">200dp</dimen>
+
+    <!-- Divider -->
+    <dimen name="divider_height">1dp</dimen>
+</resources>
