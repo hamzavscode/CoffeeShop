@@ -13,18 +13,15 @@
     <color name="on_surface">#FF4A2C2A</color>
     <color name="on_error">#FFFFFFFF</color>
 
-    <!-- Additional colors -->
-    <color name="coffee_brown_light">#FFD2691E</color>
-    <color name="coffee_brown_medium">#FFA0522D</color>
-    <color name="cream_light">#FFE8D0B3</color>
-    <color name="cream_dark">#FFD4B28C</color>
-    <color name="british_blue">#FF00247D</color>
-    <color name="british_red">#FFCF142B</color>
-    <color name="rating_yellow">#FFFFD700</color>
-    <color name="success_green">#FF4CAF50</color>
-    <color name="warning_orange">#FFFF9800</color>
-    <color name="info_blue">#FF2196F3</color>
-    <color name="gray_light">#FFE0E0E0</color>
-    <color name="gray_medium">#FF9E9E9E</color>
-    <color name="gray_dark">#FF616161</color>
+    <color name="primary_orange">#C67C4E</color>
+    <color name="primary_dark_brown">#3C2318</color>
+    <color name="background_beige">#F9F4EE</color>
+    <color name="surface_white">#FFFFFF</color>
+    <color name="text_primary">#2F1B12</color>
+    <color name="text_secondary">#757575</color>
+    <color name="star_rating">#FFC107</color>
+
+
+
+
 </resources>

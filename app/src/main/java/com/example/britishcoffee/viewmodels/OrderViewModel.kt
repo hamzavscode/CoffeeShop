@@ -7,7 +7,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.britishcoffee.models.CartItem
 import com.example.britishcoffee.models.CoffeeItem
-import com.example.britishcoffee.models.DataProvider
 import com.example.britishcoffee.models.Order
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -17,6 +16,13 @@ data class UserSession(val name: String, val email: String)
 data class UserAccount(val name: String, val password: String)
 
 class OrderViewModel : ViewModel() {
+
+    var isDarkMode by mutableStateOf<Boolean?>(null)
+        private set
+
+    fun setAppTheme(isDark: Boolean?) {
+        isDarkMode = isDark
+    }
 
     private val _registeredUsers = mutableMapOf<String, UserAccount>()
     var currentUser by mutableStateOf<UserSession?>(null)

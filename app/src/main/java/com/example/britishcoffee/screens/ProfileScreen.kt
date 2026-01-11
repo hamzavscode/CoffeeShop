@@ -21,24 +21,32 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.britishcoffee.R
-import com.example.britishcoffee.navigation.CoffeeDarkBrown
-import com.example.britishcoffee.navigation.CoffeeOrange
 import com.example.britishcoffee.viewmodels.OrderViewModel
 
 @Composable
 fun ProfileScreen(navController: NavController, viewModel: OrderViewModel) {
     val user = viewModel.currentUser
 
+    val backgroundColor = MaterialTheme.colorScheme.background
+    val onBackgroundColor = MaterialTheme.colorScheme.onBackground
+    val surfaceColor = MaterialTheme.colorScheme.surface
+    val onSurfaceColor = MaterialTheme.colorScheme.onSurface
+    val primaryOrange = colorResource(id = R.color.primary_orange)
+    val darkBrown = colorResource(id = R.color.primary_dark_brown)
+    val textSecondary = colorResource(id = R.color.text_secondary)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF9F4EE))
+            .background(backgroundColor)
             .verticalScroll(rememberScrollState())
     ) {
         Box(
@@ -53,7 +61,7 @@ fun ProfileScreen(navController: NavController, viewModel: OrderViewModel) {
                     .clip(RoundedCornerShape(bottomStart = 50.dp, bottomEnd = 50.dp))
                     .background(
                         Brush.verticalGradient(
-                            colors = listOf(CoffeeDarkBrown, Color(0xFF5E3928))
+                            colors = listOf(darkBrown, darkBrown.copy(alpha = 0.8f))
                         )
                     )
             )
@@ -66,22 +74,22 @@ fun ProfileScreen(navController: NavController, viewModel: OrderViewModel) {
             ) {
                 Box(contentAlignment = Alignment.BottomEnd) {
                     Image(
-                        painter = painterResource(id = R.drawable.double_chocolate),
+                        painter = painterResource(id = R.drawable.cappoccino),
                         contentDescription = null,
                         modifier = Modifier
                             .size(110.dp)
                             .clip(CircleShape)
-                            .border(4.dp, Color.White, CircleShape)
-                            .background(Color.White),
+                            .border(4.dp, surfaceColor, CircleShape)
+                            .background(surfaceColor),
                         contentScale = ContentScale.Crop
                     )
                     Box(
                         modifier = Modifier
                             .size(32.dp)
                             .clip(CircleShape)
-                            .background(CoffeeOrange)
-                            .border(2.dp, Color.White, CircleShape)
-                            .clickable { /* Edit Photo */ },
+                            .background(primaryOrange)
+                            .border(2.dp, surfaceColor, CircleShape)
+                            .clickable { /* Edit Photo Action */ },
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(Icons.Default.CameraAlt, null, tint = Color.White, modifier = Modifier.size(16.dp))
@@ -90,75 +98,72 @@ fun ProfileScreen(navController: NavController, viewModel: OrderViewModel) {
 
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = user?.name ?: "Guest User",
+                    text = user?.name ?: stringResource(id = R.string.guest_user),
                     fontSize = 22.sp,
                     fontWeight = FontWeight.ExtraBold,
-                    color = CoffeeDarkBrown
+                    color = onBackgroundColor
                 )
                 Text(
-                    text = user?.email ?: "guest@example.com",
+                    text = user?.email ?: stringResource(id = R.string.guest_email),
                     fontSize = 14.sp,
-                    color = Color.Gray
+                    color = textSecondary
                 )
             }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-
-
-        Spacer(modifier = Modifier.height(24.dp))
-
         Column(modifier = Modifier.padding(horizontal = 20.dp)) {
 
-            SectionHeader("Account Settings")
+            SectionHeader(stringResource(id = R.string.account_settings))
 
             ProfileMenuItem(
                 icon = Icons.Outlined.Person,
-                title = "Personal Information",
-                subtitle = "Name, Email, Phone number"
+                title = stringResource(id = R.string.personal_info),
+                subtitle = stringResource(id = R.string.personal_info_sub)
             ) { }
 
             ProfileMenuItem(
                 icon = Icons.Outlined.LocationOn,
-                title = "Delivery Addresses",
-                subtitle = "Home, Office, etc."
+                title = stringResource(id = R.string.delivery_address),
+                subtitle = stringResource(id = R.string.delivery_address_sub)
             ) { }
 
             ProfileMenuItem(
                 icon = Icons.Outlined.Payment,
-                title = "Payment Methods",
-                subtitle = "Cards, Wallets"
+                title = stringResource(id = R.string.payment_methods),
+                subtitle = stringResource(id = R.string.payment_methods_sub)
             ) { }
 
             Spacer(modifier = Modifier.height(16.dp))
-            SectionHeader("Preference")
+            SectionHeader(stringResource(id = R.string.preference_section))
 
             ProfileMenuItem(
                 icon = Icons.Outlined.History,
-                title = "My Orders",
-                subtitle = "History and active tracking"
+                title = stringResource(id = R.string.my_order),
+                subtitle = stringResource(id = R.string.my_order_sub)
             ) {
                 navController.navigate("orders")
             }
 
             ProfileMenuItem(
                 icon = Icons.Outlined.Settings,
-                title = "App Settings",
-                subtitle = "Theme, Notifications, Language"
+                title = stringResource(id = R.string.settings),
+                subtitle = stringResource(id = R.string.settings_sub)
             ) {
                 navController.navigate("settings")
             }
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // --- Logout Button ---
             Button(
                 onClick = {
                     viewModel.logout()
                     navController.navigate("login") { popUpTo("home") { inclusive = true } }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFEBEE)),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Red.copy(alpha = 0.1f)
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
@@ -168,7 +173,12 @@ fun ProfileScreen(navController: NavController, viewModel: OrderViewModel) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Default.Logout, null, tint = Color.Red)
                     Spacer(modifier = Modifier.width(10.dp))
-                    Text("Logout", color = Color.Red, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text(
+                        text = stringResource(id = R.string.logout),
+                        color = Color.Red,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
                 }
             }
 
@@ -178,33 +188,27 @@ fun ProfileScreen(navController: NavController, viewModel: OrderViewModel) {
 }
 
 @Composable
-fun ProfileStatItem(label: String, value: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = value, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = CoffeeOrange)
-        Text(text = label, fontSize = 12.sp, color = Color.Gray)
-    }
-}
-
-@Composable
 fun SectionHeader(title: String) {
     Text(
         text = title,
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
-        color = Color.Gray,
+        color = colorResource(id = R.color.text_secondary),
         modifier = Modifier.padding(vertical = 12.dp, horizontal = 8.dp)
     )
 }
 
 @Composable
 fun ProfileMenuItem(icon: ImageVector, title: String, subtitle: String, onClick: () -> Unit) {
+    val primaryOrange = colorResource(id = R.color.primary_orange)
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 6.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Row(
@@ -217,20 +221,34 @@ fun ProfileMenuItem(icon: ImageVector, title: String, subtitle: String, onClick:
                 modifier = Modifier
                     .size(44.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(CoffeeOrange.copy(alpha = 0.1f)),
+                    .background(primaryOrange.copy(alpha = 0.1f)),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(icon, null, tint = CoffeeOrange, modifier = Modifier.size(22.dp))
+                Icon(icon, null, tint = primaryOrange, modifier = Modifier.size(22.dp))
             }
 
             Spacer(modifier = Modifier.width(16.dp))
 
             Column(modifier = Modifier.weight(1f)) {
-                Text(text = title, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = CoffeeDarkBrown)
-                Text(text = subtitle, fontSize = 11.sp, color = Color.Gray)
+                Text(
+                    text = title,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = subtitle,
+                    fontSize = 11.sp,
+                    color = colorResource(id = R.color.text_secondary)
+                )
             }
 
-            Icon(Icons.Default.ChevronRight, null, tint = Color.LightGray, modifier = Modifier.size(20.dp))
+            Icon(
+                Icons.Default.ChevronRight,
+                null,
+                tint = Color.LightGray,
+                modifier = Modifier.size(20.dp)
+            )
         }
     }
 }

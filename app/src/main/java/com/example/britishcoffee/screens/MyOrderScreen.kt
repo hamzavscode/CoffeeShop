@@ -19,7 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +35,13 @@ import com.example.britishcoffee.viewmodels.OrderViewModel
 @Composable
 fun MyOrderScreen(navController: NavController, viewModel: OrderViewModel) {
     val realOrders = viewModel.orders
+
+    val backgroundColor = MaterialTheme.colorScheme.background
+    val surfaceColor = MaterialTheme.colorScheme.surface
+    val onBackgroundColor = MaterialTheme.colorScheme.onBackground
+    val onSurfaceColor = MaterialTheme.colorScheme.onSurface
+    val primaryOrange = colorResource(id = R.color.primary_orange)
+    val textSecondary = colorResource(id = R.color.text_secondary)
 
     val mockCompletedOrders = remember {
         listOf(
@@ -54,15 +63,13 @@ fun MyOrderScreen(navController: NavController, viewModel: OrderViewModel) {
     }
 
     var selectedTab by remember { mutableIntStateOf(0) }
-
     val activeOrders = realOrders.filter { it.status == "Processing" }
-
     val completedOrders = realOrders.filter { it.status == "Delivered" } + mockCompletedOrders
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF9F4EE))
+            .background(backgroundColor)
             .padding(20.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -70,14 +77,24 @@ fun MyOrderScreen(navController: NavController, viewModel: OrderViewModel) {
                 modifier = Modifier
                     .size(40.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(Color.White)
+                    .background(surfaceColor)
                     .clickable { navController.popBackStack() },
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Default.ArrowBackIosNew, "Back", modifier = Modifier.size(18.dp))
+                Icon(
+                    imageVector = Icons.Default.ArrowBackIosNew,
+                    contentDescription = stringResource(id = R.string.back_label),
+                    modifier = Modifier.size(18.dp),
+                    tint = onSurfaceColor
+                )
             }
             Spacer(modifier = Modifier.weight(1f))
-            Text("My Order", fontSize = 20.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF2F1B12))
+            Text(
+                text = stringResource(id = R.string.my_order),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = onBackgroundColor
+            )
             Spacer(modifier = Modifier.weight(1.2f))
         }
 
@@ -88,17 +105,18 @@ fun MyOrderScreen(navController: NavController, viewModel: OrderViewModel) {
                 .fillMaxWidth()
                 .height(54.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .background(Color(0xFFEDEDED))
+                .background(surfaceColor.copy(alpha = 0.5f))
+                .border(1.dp, Color.LightGray.copy(alpha = 0.2f), RoundedCornerShape(16.dp))
                 .padding(4.dp)
         ) {
             TabItem(
-                text = "Active",
+                text = stringResource(id = R.string.tab_active),
                 isSelected = selectedTab == 0,
                 modifier = Modifier.weight(1f)
             ) { selectedTab = 0 }
 
             TabItem(
-                text = "Completed",
+                text = stringResource(id = R.string.tab_completed),
                 isSelected = selectedTab == 1,
                 modifier = Modifier.weight(1f)
             ) { selectedTab = 1 }
@@ -115,14 +133,18 @@ fun MyOrderScreen(navController: NavController, viewModel: OrderViewModel) {
                         painter = painterResource(id = R.drawable.coffee_placeholder),
                         contentDescription = null,
                         modifier = Modifier.size(100.dp),
-                        tint = Color.LightGray
+                        tint = textSecondary.copy(alpha = 0.3f)
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text("No orders found", color = Color.Gray, fontSize = 16.sp)
+                    Text(
+                        text = stringResource(id = R.string.no_orders),
+                        color = textSecondary,
+                        fontSize = 16.sp
+                    )
                 }
             }
         } else {
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp), contentPadding = PaddingValues(bottom = 80.dp)) {
                 items(listToShow) { order ->
                     val firstItem = order.items.firstOrNull()
                     val coffeeName = if (order.items.size > 1) {
@@ -147,12 +169,13 @@ fun MyOrderScreen(navController: NavController, viewModel: OrderViewModel) {
 
 @Composable
 fun TabItem(text: String, isSelected: Boolean, modifier: Modifier, onClick: () -> Unit) {
+    val primaryOrange = colorResource(id = R.color.primary_orange)
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .fillMaxHeight()
             .clip(RoundedCornerShape(12.dp))
-            .background(if (isSelected) Color(0xFFC67C4E) else Color.Transparent)
+            .background(if (isSelected) primaryOrange else Color.Transparent)
             .clickable { onClick() }
     ) {
         Text(
@@ -166,9 +189,14 @@ fun TabItem(text: String, isSelected: Boolean, modifier: Modifier, onClick: () -
 
 @Composable
 fun OrderCardItem(name: String, price: Double, date: String, status: String, imageRes: Int, orderId: String) {
+    val onSurface = MaterialTheme.colorScheme.onSurface
+    val surface = MaterialTheme.colorScheme.surface
+    val primaryOrange = colorResource(id = R.color.primary_orange)
+    val textSecondary = colorResource(id = R.color.text_secondary)
+
     Card(
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = surface),
         elevation = CardDefaults.cardElevation(2.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -190,19 +218,18 @@ fun OrderCardItem(name: String, price: Double, date: String, status: String, ima
             Spacer(modifier = Modifier.width(16.dp))
 
             Column(modifier = Modifier.weight(1f)) {
-                Text(text = name, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.Black)
-                Text(text = "Order ID: $orderId", color = Color.Gray, fontSize = 11.sp)
+                Text(text = name, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = onSurface)
+                Text(text = "Order ID: $orderId", color = textSecondary, fontSize = 11.sp)
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(text = date, color = Color.Gray, fontSize = 12.sp)
+                Text(text = date, color = textSecondary, fontSize = 12.sp)
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 val statusColor = if (status == "Delivered") Color(0xFF4CAF50) else Color(0xFFFF9800)
-                val statusBg = statusColor.copy(alpha = 0.1f)
 
                 Box(
                     modifier = Modifier
-                        .background(statusBg, RoundedCornerShape(8.dp))
+                        .background(statusColor.copy(alpha = 0.1f), RoundedCornerShape(8.dp))
                         .border(1.dp, statusColor.copy(alpha = 0.5f), RoundedCornerShape(8.dp))
                         .padding(horizontal = 10.dp, vertical = 4.dp)
                 ) {
@@ -214,7 +241,7 @@ fun OrderCardItem(name: String, price: Double, date: String, status: String, ima
                 text = "$${String.format("%.2f", price)}",
                 fontWeight = FontWeight.ExtraBold,
                 fontSize = 18.sp,
-                color = Color(0xFFC67C4E)
+                color = primaryOrange
             )
         }
     }

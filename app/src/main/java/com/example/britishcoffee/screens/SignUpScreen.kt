@@ -1,9 +1,14 @@
 package com.example.britishcoffee.screens
 
 import android.widget.Toast
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,9 +22,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -27,8 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.britishcoffee.R
-import com.example.britishcoffee.navigation.CoffeeDarkBrown
-import com.example.britishcoffee.navigation.CoffeeOrange
 import com.example.britishcoffee.viewmodels.OrderViewModel
 
 @Composable
@@ -38,36 +44,50 @@ fun SignUpScreen(navController: NavController, viewModel: OrderViewModel) {
     var password by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    val backgroundColor = MaterialTheme.colorScheme.background
+    val surfaceColor = MaterialTheme.colorScheme.surface
+    val onBackgroundColor = MaterialTheme.colorScheme.onBackground
+    val primaryOrange = colorResource(id = R.color.primary_orange)
+    val darkBrown = colorResource(id = R.color.primary_dark_brown)
+    val textSecondary = colorResource(id = R.color.text_secondary)
+
+    var visible by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) { visible = true }
+    val offsetY by animateDpAsState(targetValue = if (visible) 0.dp else 100.dp, animationSpec = tween(600), label = "")
+
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val scale by animateFloatAsState(if (isPressed) 0.96f else 1f, label = "")
+
+    Box(modifier = Modifier.fillMaxSize().background(backgroundColor)) {
         Image(
             painter = painterResource(id = R.drawable.coffee_placeholder),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(280.dp)
+            modifier = Modifier.fillMaxWidth().height(280.dp)
         )
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 230.dp)
+                .offset(y = offsetY)
                 .clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
-                .background(Color.White)
+                .background(surfaceColor)
                 .verticalScroll(rememberScrollState())
                 .padding(30.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Create Account",
+                text = stringResource(id = R.string.create_account),
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
-                color = CoffeeDarkBrown
+                color = onBackgroundColor
             )
             Text(
-                text = "Sign up to start your coffee journey",
+                text = stringResource(id = R.string.signup_subtitle),
                 fontSize = 14.sp,
-                color = Color.Gray
+                color = textSecondary
             )
 
             Spacer(modifier = Modifier.height(30.dp))
@@ -75,14 +95,14 @@ fun SignUpScreen(navController: NavController, viewModel: OrderViewModel) {
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Full Name") },
-                placeholder = { Text("e.g. Hamza Jou") },
+                label = { Text(stringResource(id = R.string.full_name)) },
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = CoffeeOrange,
-                    focusedLabelColor = CoffeeOrange
+                    focusedBorderColor = primaryOrange,
+                    focusedLabelColor = primaryOrange,
+                    unfocusedTextColor = onBackgroundColor,
+                    focusedTextColor = onBackgroundColor
                 )
             )
 
@@ -91,15 +111,15 @@ fun SignUpScreen(navController: NavController, viewModel: OrderViewModel) {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Email Address") },
-                placeholder = { Text("example@gmail.com") },
+                label = { Text(stringResource(id = R.string.email_address)) },
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = CoffeeOrange,
-                    focusedLabelColor = CoffeeOrange
+                    focusedBorderColor = primaryOrange,
+                    focusedLabelColor = primaryOrange,
+                    unfocusedTextColor = onBackgroundColor,
+                    focusedTextColor = onBackgroundColor
                 )
             )
 
@@ -108,14 +128,15 @@ fun SignUpScreen(navController: NavController, viewModel: OrderViewModel) {
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Password") },
+                label = { Text(stringResource(id = R.string.password)) },
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = PasswordVisualTransformation(),
-                singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = CoffeeOrange,
-                    focusedLabelColor = CoffeeOrange
+                    focusedBorderColor = primaryOrange,
+                    focusedLabelColor = primaryOrange,
+                    unfocusedTextColor = onBackgroundColor,
+                    focusedTextColor = onBackgroundColor
                 )
             )
 
@@ -124,35 +145,26 @@ fun SignUpScreen(navController: NavController, viewModel: OrderViewModel) {
             Button(
                 onClick = {
                     if (name.isBlank() || email.isBlank() || password.isBlank()) {
-                        Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
-                    }
-                    else if (!email.contains("@")) {
-                        Toast.makeText(context, "Please enter a valid email (@)", Toast.LENGTH_SHORT).show()
-                    }
-                    else if (password.length < 6) {
-                        Toast.makeText(context, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
-                    }
-                    else {
-                        // 2. Register user in shared ViewModel
+                        Toast.makeText(context, R.string.error_fill_all_fields, Toast.LENGTH_SHORT).show()
+                    } else {
                         val isSuccess = viewModel.registerUser(name, email, password)
                         if (isSuccess) {
-                            Toast.makeText(context, "Account Created Successfully!", Toast.LENGTH_SHORT).show()
-                            navController.navigate("login") {
-                                popUpTo("signup") { inclusive = true }
-                            }
+                            navController.navigate("login") { popUpTo("signup") { inclusive = true } }
                         } else {
-                            Toast.makeText(context, "Email is already registered", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, R.string.error_email_registered, Toast.LENGTH_SHORT).show()
                         }
                     }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = CoffeeDarkBrown),
+                interactionSource = interactionSource,
+                colors = ButtonDefaults.buttonColors(containerColor = darkBrown),
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp)
+                    .graphicsLayer(scaleX = scale, scaleY = scale)
             ) {
                 Text(
-                    text = "Sign Up",
+                    text = stringResource(id = R.string.sign_up_btn),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -161,19 +173,17 @@ fun SignUpScreen(navController: NavController, viewModel: OrderViewModel) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Row(
-                modifier = Modifier.clickable { navController.navigate("login") },
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text("Already have an account? ", color = Color.Gray)
+            Row(modifier = Modifier.clickable { navController.navigate("login") }) {
                 Text(
-                    text = "Login",
-                    color = CoffeeOrange,
+                    text = stringResource(id = R.string.already_have_account),
+                    color = textSecondary
+                )
+                Text(
+                    text = stringResource(id = R.string.login_btn),
+                    color = primaryOrange,
                     fontWeight = FontWeight.Bold
                 )
             }
-
-            Spacer(modifier = Modifier.height(50.dp))
         }
     }
 }
